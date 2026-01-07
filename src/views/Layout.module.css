@@ -1,0 +1,52 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    /* Slight dim for better visibility */
+    backdrop-filter: blur(1px);
+    /* Optional: distinct vibe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    /* Let clicks pass through overlay if it covers everything, but here it contains content? Wait. */
+}
+
+/* We need to ensure content is clickable. The overlay puts a tint over the background image but wraps content.
+   If we put scanlines on .overlay, it will affect .content visibility potentially.
+   Actually, scanlines are usually on top of everything.
+   Let's make a separate scanline div or keep it subtle on the background overlay.
+   The current structure is Layout -> container -> overlay -> content.
+   If overlay has scanlines, content inside might be hard to read or unaffected depending on z-index.
+   Since content is IN overlay, the background of overlay is behind content.
+   So this is fine for "background scanlines".
+   If we want "foreground scanlines", we need a sibling to content.
+   I'll stick to background scanlines for now.
+*/
+
+.content {
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: auto;
+}
