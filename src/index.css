@@ -1,14 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
 :root {
+  --neon-green: #39ff14;
+  --neon-pink: #ff00ff;
+  --neon-blue: #00ffff;
+  --retro-bg: #1a1a1a;
+
+  --font-retro: 'VT323', monospace;
+  --font-pixel: 'Press Start 2P', monospace;
+
   --bg-primary: #000000;
   --text-primary: #ffffff;
   --accent-pink: #ff00ff;
   --accent-purple: #bd00ff;
   --ui-border: 2px solid white;
   --glass-bg: rgba(0, 0, 0, 0.7);
-  
-  --font-retro: 'VT323', monospace;
+
+  /* Indie/Brutalist standard */
+  --indie-border: 6px solid #000;
+  --indie-shadow: 12px 12px 0 rgba(0, 0, 0, 0.8);
+  --indie-inner-border: 2px solid rgba(255, 255, 255, 0.3);
 }
 
 * {
@@ -19,9 +30,11 @@
 
 body {
   font-family: var(--font-retro);
-  background-color: var(--bg-primary);
+  background-color: var(--retro-bg);
   color: var(--text-primary);
-  overflow: hidden; /* Prevent scroll on main body */
+  overflow: auto;
+  /* Allow scrolling */
+  min-height: 100vh;
 }
 
 a {
@@ -29,14 +42,18 @@ a {
   text-decoration: none;
 }
 
-/* Custom Scrollbar for inner containers */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 10px;
 }
+
 ::-webkit-scrollbar-track {
   background: black;
+  border-left: 1px solid #333;
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--accent-purple);
   border: 1px solid white;
+  box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.5);
 }

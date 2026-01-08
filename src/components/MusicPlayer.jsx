@@ -7,8 +7,16 @@ const MusicPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
     const audioRef = useRef(null);
+    const [volume, setVolume] = useState(0.5);
+    const [playerColor, setPlayerColor] = useState('#b39ddb'); // Default Lavender
 
     const currentTrack = PLAYLIST[currentTrackIndex];
+
+    const themes = [
+        { color: '#b39ddb', name: 'Lavender' },
+        { color: '#ffb7ce', name: 'Pink' },
+        { color: '#a5d6a7', name: 'Mint' }
+    ];
 
     useEffect(() => {
         // Initialize or update audio source
@@ -18,7 +26,7 @@ const MusicPlayer = () => {
             audioRef.current.src = currentTrack.url;
         }
 
-        audioRef.current.volume = 0.5;
+        audioRef.current.volume = volume;
 
         // Auto-play if was playing
         const playAudio = async () => {
@@ -48,6 +56,12 @@ const MusicPlayer = () => {
         };
     }, [currentTrackIndex]);
 
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = volume;
+        }
+    }, [volume]);
+
     const togglePlay = async () => {
         if (!audioRef.current) return;
 
@@ -73,19 +87,37 @@ const MusicPlayer = () => {
         setCurrentTrackIndex((prev) => (prev - 1 + PLAYLIST.length) % PLAYLIST.length);
     };
 
+    const handleVolumeChange = (e) => {
+        setVolume(parseFloat(e.target.value));
+    };
+
     return (
-        <div className={styles.player}>
-            <div className={styles.visualizer}>
-                <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`}></div>
-                <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.1s' }}></div>
-                <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.2s' }}></div>
-                <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.3s' }}></div>
-                <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.4s' }}></div>
+        <div className={styles.player} style={{ backgroundColor: playerColor }}>
+            <div className={styles.themeSwitcher}>
+                {themes.map((theme) => (
+                    <button
+                        key={theme.color}
+                        className={styles.themeDot}
+                        style={{ backgroundColor: theme.color }}
+                        onClick={() => setPlayerColor(theme.color)}
+                        title={theme.name}
+                    />
+                ))}
             </div>
 
-            <div className={styles.trackInfo}>
-                <div className={styles.title}>{currentTrack.title}</div>
-                <div className={styles.artist}>{currentTrack.artist}</div>
+            <div className={styles.playerScreen}>
+                <div className={styles.visualizer}>
+                    <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`}></div>
+                    <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.1s' }}></div>
+                    <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.2s' }}></div>
+                    <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.3s' }}></div>
+                    <div className={`${styles.bar} ${isPlaying ? styles.animating : ''}`} style={{ animationDelay: '0.4s' }}></div>
+                </div>
+
+                <div className={styles.trackInfo}>
+                    <div className={styles.title}>{currentTrack.title}</div>
+                    <div className={styles.artist}>{currentTrack.artist}</div>
+                </div>
             </div>
 
             <div className={styles.controls}>
@@ -97,8 +129,21 @@ const MusicPlayer = () => {
             </div>
 
             <div className={styles.volume}>
-                <Volume2 size={16} />
-                <div className={styles.volBar}></div>
+                <button
+                    className={styles.muteBtn}
+                    onClick={() => setVolume(prev => prev === 0 ? 0.5 : 0)}
+                >
+                    <Volume2 size={16} />
+                </button>
+                <input
+                    type="range"
+                    min="0"
+                    max="1"
+                    step="0.01"
+                    value={volume}
+                    onChange={handleVolumeChange}
+                    className={styles.volSlider}
+                />
             </div>
         </div>
     );

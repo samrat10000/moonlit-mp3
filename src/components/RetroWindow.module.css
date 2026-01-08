@@ -1,0 +1,210 @@
+/* Main Window Container */
+.window {
+    width: 100%;
+    /* Max width relative to parent (centerStage) */
+    max-width: 450px;
+    background-color: #f4f1ea;
+    border: 2px solid #000;
+    border-radius: 8px;
+    box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.8rem;
+    color: #333;
+    pointer-events: auto;
+    /* Ensure clickable */
+    margin-top: 0;
+}
+
+/* Title Bar */
+.titleBar {
+    background-color: #f4f1ea;
+    border-bottom: 2px solid #000;
+    padding: 0.5rem 0.8rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.titleText {
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.controls {
+    display: flex;
+    gap: 6px;
+}
+
+.control {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 1.5px solid #000;
+}
+
+.close {
+    background-color: #ff5f57;
+}
+
+.minimize {
+    background-color: #febc2e;
+}
+
+.maximize {
+    background-color: #28c840;
+}
+
+/* Main Body Layout */
+.body {
+    display: flex;
+    height: 300px;
+    /* Fixed height for scrollable content */
+}
+
+/* Sidebar (Left) */
+.sidebar {
+    width: 30%;
+    background-color: #e8e4db;
+    border-right: 2px solid #000;
+    padding: 1rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.channel {
+    padding: 4px 6px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.channel:hover,
+.activeChannel {
+    background-color: #dcd8cf;
+    font-weight: bold;
+}
+
+/* Main Content (Right) */
+.mainContent {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f4f1ea;
+}
+
+.feed {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Scrollbar Styling for Sidebar/Feed */
+.feed::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.feed::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb {
+    background: #000;
+    border-radius: 3px;
+}
+
+/* Feed Items */
+.message {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 0.75rem;
+}
+
+.timestamp {
+    font-size: 0.65rem;
+    color: #666;
+    margin-left: 6px;
+}
+
+.imageContainer {
+    width: 100%;
+    height: 150px;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #000;
+    margin-top: 4px;
+    font-family: var(--font-pixel);
+    font-size: 0.7rem;
+    letter-spacing: 2px;
+}
+
+.imagePlaceholder {
+    text-align: center;
+    animation: blink 2s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Input Area */
+.inputArea {
+    border-top: 2px solid #000;
+    padding: 0.8rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.input {
+    flex: 1;
+    border: 2px solid #000;
+    background: #fff;
+    padding: 6px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    outline: none;
+    box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.sendBtn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 0 10px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+/* Trip Mode Integration */
+:global(.tripActive) .window {
+    opacity: 1;
+    /* Keeping it visible in trip mode as requested later or just visible for now? 
+                   User said "Add Trip Mode behavior (fade others, keep only music + this window) ... Next phase". 
+                   So for now, it behaves like normal widgets? 
+                   Wait, "This window acts as a self-contained micro-app... It should not overpower the music player".
+                   If I put it in dashboard, tripActive hides EVERYTHING in left/right. 
+                   It's in Center. `.tripActive .centerStage` scales down. 
+                   So this window will also scale down if inside centerStage. 
+                   Let's keep typical behavior for now. */
+}

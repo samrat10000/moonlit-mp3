@@ -9,7 +9,8 @@ import os
 # YouTube URLs
 SONGS = {
     "the_pool": "https://www.youtube.com/watch?v=fvWG3bPJTkU",
-    "be_more": "https://www.youtube.com/watch?v=hGvl2rfJBU0"
+    "be_more": "https://www.youtube.com/watch?v=hGvl2rfJBU0",
+    "devilish": "https://www.youtube.com/watch?v=DdzF7AT8Lds"
 }
 
 OUTPUT_DIR = "public/music"

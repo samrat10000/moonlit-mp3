@@ -1,74 +1,136 @@
-.dashboard {
-    width: 600px;
-    height: 600px;
-    background-color: black;
-    border: 2px solid white;
-    box-shadow: 0 0 20px rgba(189, 0, 255, 0.5);
-    /* Purple glow */
+/* Main Desktop Area - Responsive Layout */
+.desktopArea {
+    width: 100%;
+    min-height: 100%;
+    display: grid;
+    /* Fixed width sides, flexible center */
+    grid-template-columns: 350px 1fr 350px;
+    padding: 2.5rem 2rem;
+    gap: 2rem;
+    background-color: transparent;
+    position: relative;
+    font-family: var(--font-retro);
+    justify-content: space-between;
+}
+
+.leftSection {
     display: flex;
     flex-direction: column;
-    font-family: var(--font-retro);
-    color: white;
+    gap: 2rem;
+    min-width: 0;
+    align-items: flex-start;
+    /* Snap to left */
+    /* Scale down for zoomed-out feel. Origin top left to Snap to edge */
+    transform: scale(0.85);
+    transform-origin: top left;
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out, filter 1.5s ease;
+}
+
+.rightSection {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    min-width: 0;
+    align-items: flex-end;
+    /* Snap to right */
+    /* Scale down. Origin top right to Snap to edge */
+    transform: scale(0.85);
+    transform-origin: top right;
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out, filter 1.5s ease;
+}
+
+/* TRIP MODE ACTIVE STATE */
+.tripActive .leftSection,
+.tripActive .rightSection {
+    opacity: 0;
+    pointer-events: none;
+    filter: blur(10px);
+    transform: scale(0.95);
+}
+
+.tripActive .keychain {
+    opacity: 0;
+    transition: opacity 1.5s ease;
+}
+
+.centerStage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    overflow: hidden;
+    padding-top: 1.25rem;
+    min-height: min-content;
+    min-width: 0;
+    transition: all 1.5s ease-in-out;
+    /* Prevent grid overflow */
 }
 
-.header {
-    height: 40px;
-    border-bottom: 2px solid white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 1rem;
-    background: #1a1a1a;
+.tripActive .centerStage {
+    transform: scale(0.9);
 }
 
-.header h1 {
-    font-size: 1.2rem;
-    letter-spacing: 2px;
+
+
+.heroPlayer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    /* Centered and scaled */
+    z-index: 1000;
+    filter: drop-shadow(0 0 2.5rem rgba(0, 0, 0, 0.5));
     margin: 0;
+    transition: transform 1.5s ease-in-out, filter 1.5s ease;
+    pointer-events: auto;
 }
 
-.controls {
-    display: flex;
-    gap: 10px;
-    font-size: 1.2rem;
-    cursor: pointer;
+.tripActive .heroPlayer {
+    transform: translate(-50%, -50%) scale(0.65);
 }
 
-.main {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: radial-gradient(circle, #222 0%, #000 100%);
+/* Base Widget Overrides - Better Spacing */
+:global(.widget) {
+    width: 100% !important;
+    margin: 0 !important;
+    background: rgba(0, 0, 0, 0.6) !important;
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding: 1rem !important;
+    line-height: 1.6 !important;
 }
 
-.tempMessage {
-    animation: blink 2s infinite;
-    color: var(--accent-pink);
-    font-size: 1.5rem;
+/* Responsive Breakpoints */
+@media (max-width: 1400px) {
+    .desktopArea {
+        grid-template-columns: minmax(250px, 1fr) minmax(450px, 2fr) minmax(250px, 1fr);
+        gap: 2rem;
+        padding: 2rem 1.5rem;
+    }
 }
 
-.footer {
-    height: 30px;
-    border-top: 2px solid white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    background: #1a1a1a;
-}
-
-@keyframes blink {
-
-    0%,
-    100% {
-        opacity: 1;
-        text-shadow: 0 0 5px var(--accent-pink);
+@media (max-width: 1200px) {
+    .desktopArea {
+        grid-template-columns: minmax(400px, 2fr) minmax(250px, 1fr);
+        gap: 1.5rem;
     }
 
-    50% {
-        opacity: 0.3;
+    .rightSection {
+        display: none;
+    }
+}
+
+@media (max-width: 900px) {
+    .desktopArea {
+        grid-template-columns: 1fr;
+        padding: 1.5rem 1rem;
+    }
+
+    .leftSection {
+        display: none;
+    }
+
+    .heroPlayer {
+        transform: scale(1);
     }
 }

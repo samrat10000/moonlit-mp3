@@ -12,5 +12,12 @@ export const PLAYLIST = [
     artist: "Stephen Sanchez",
     duration: "3:53",
     url: "/music/be_more.mp3" 
+  },
+  {
+    id: 3,
+    title: "DEVILISH",
+    artist: "Chase Atlantic",
+    duration: "3:44",
+    url: "/music/devilish.mp3"
   }
 ];

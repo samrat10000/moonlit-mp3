@@ -1,0 +1,261 @@
+.deskWindow {
+    width: 350px;
+    height: 550px;
+    background: #2a1a3a;
+    border: var(--indie-border);
+    box-shadow: var(--indie-shadow);
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    outline: var(--indie-inner-border);
+    outline-offset: -10px;
+    /* Torn paper effect */
+    clip-path: polygon(0% 0.5%, 2% 0%, 98% 0%, 100% 0.5%,
+            100% 99.5%, 98% 100%, 2% 100%, 0% 99.5%);
+}
+
+/* Vignette for mood */
+.deskWindow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, transparent 40%, rgba(0, 0, 0, 0.5) 100%);
+    pointer-events: none;
+    z-index: 45;
+}
+
+/* Wall stripes - more "raw" */
+.deskWindow::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(90deg,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.1) 20px,
+            transparent 20px,
+            transparent 40px);
+    pointer-events: none;
+}
+
+/* Texture overlay for that "indie" grain feel */
+.deskWindow::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.15;
+    pointer-events: none;
+    z-index: 50;
+}
+
+.header {
+    background: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-family: var(--font-pixel);
+    font-size: 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 8px solid #000;
+    z-index: 100;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 255, 255, 0.05) 10px, rgba(255, 255, 255, 0.05) 20px);
+}
+
+/* The "Desk" surface at the bottom */
+.deskSurface {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 120px;
+    background: #000;
+    border-top: 10px solid #000;
+    z-index: 25;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-bottom: 20px;
+}
+
+/* The Monitor screen */
+.monitor {
+    width: 90%;
+    max-width: 300px;
+    height: 280px;
+    background: #000;
+    border: 10px solid #222;
+    box-sizing: border-box;
+    position: absolute;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 0 5px #000,
+        20px 20px 0 rgba(0, 0, 0, 0.6);
+    z-index: 10;
+}
+
+.monitorInner {
+    width: 100%;
+    height: 100%;
+    background: #05040a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    border: 6px solid #000;
+}
+
+/* CRT Scanlines and Glow */
+.monitorInner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.4) 100%),
+        linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.4) 50%),
+        linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(0, 255, 0, 0.05), rgba(0, 0, 255, 0.1));
+    background-size: 100% 100%, 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.startingSoon {
+    font-family: var(--font-pixel);
+    font-size: 1.1rem;
+    color: #fff;
+    text-align: center;
+    animation: flicker 0.2s infinite;
+    text-shadow:
+        4px 4px 0 #ff00ff,
+        -2px -2px 0 #00ffff;
+    z-index: 5;
+    letter-spacing: 4px;
+    white-space: nowrap;
+    /* Keep on one line */
+}
+
+@keyframes flicker {
+    0% {
+        opacity: 0.9;
+        transform: translateX(1px);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateX(-1px);
+    }
+
+    100% {
+        opacity: 0.9;
+    }
+}
+
+/* Decorative elements */
+.item {
+    position: absolute;
+    font-family: monospace;
+    font-size: 1.5rem;
+    /* Smaller for ASCII */
+    filter: drop-shadow(4px 4px 0px #000);
+    z-index: 30;
+    color: #fff;
+    font-weight: bold;
+}
+
+.ghost {
+    bottom: 125px;
+    left: 30px;
+    font-size: 1.2rem;
+}
+
+.mimikyu {
+    bottom: 120px;
+    right: 25px;
+    font-size: 1.1rem;
+}
+
+.skeleton {
+    bottom: 30px;
+    right: 100px;
+    z-index: 40;
+    font-size: 2.5rem;
+    color: #555;
+}
+
+.candle {
+    bottom: 125px;
+    left: 180px;
+    font-size: 1.2rem;
+}
+
+.bat {
+    top: 70px;
+    left: 50%;
+    transform: translateX(-180%);
+    font-size: 1.2rem;
+    z-index: 5;
+}
+
+.spider {
+    top: 100px;
+    left: 60px;
+    font-size: 1rem;
+    z-index: 5;
+}
+
+.keyboard {
+    width: 320px;
+    height: 50px;
+    background: #1a1a1a;
+    border: 6px solid #333;
+    box-shadow: 6px 6px 0 #000;
+    position: relative;
+}
+
+/* Desk Shelf/Grid on the wall */
+.shelf {
+    position: absolute;
+    top: 80px;
+    right: 40px;
+    width: 90px;
+    background: #000;
+    border: 6px solid #fff;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+    box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.shelfItem {
+    height: 60px;
+    border-bottom: 4px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-family: monospace;
+}
+
+.shelfItem:last-child {
+    border-bottom: none;
+}

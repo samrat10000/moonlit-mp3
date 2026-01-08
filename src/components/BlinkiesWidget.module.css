@@ -1,0 +1,64 @@
+.widget {
+    background: #000;
+    border: var(--indie-border);
+    box-shadow: var(--indie-shadow);
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+.header {
+    background: #000;
+    color: #fff;
+    padding: 6px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--font-pixel);
+    font-size: 0.6rem;
+    border-bottom: 2px solid #333;
+}
+
+.controls {
+    display: flex;
+    gap: 4px;
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border: 1px solid #000;
+}
+
+.content {
+    padding: 10px;
+    background: #000;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+.blinkieItem {
+    line-height: 0;
+    transition: transform 0.1s;
+    filter: drop-shadow(2px 2px 0 rgba(255, 255, 255, 0.1));
+}
+
+.blinkieItem:hover {
+    transform: scale(1.05);
+}
+
+.blinkieImg {
+    height: 31px;
+    /* Standard blinkie height */
+    width: auto;
+    image-rendering: pixelated;
+    border: 1px solid #333;
+}

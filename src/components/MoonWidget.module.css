@@ -1,0 +1,114 @@
+.moonWindow {
+    width: 350px;
+    background-color: #000;
+    border: var(--indie-border);
+    box-shadow: var(--indie-shadow);
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-retro);
+    color: white;
+    position: relative;
+    z-index: 5;
+    outline: var(--indie-inner-border);
+    outline-offset: -10px;
+}
+
+.header {
+    background: #fff;
+    color: #000;
+    padding: 4px 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    font-family: var(--font-pixel);
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.controls {
+    display: flex;
+    gap: 4px;
+}
+
+.box {
+    width: 10px;
+    height: 10px;
+    border: 1px solid #000;
+    background: #ccc;
+}
+
+.content {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    background:
+        repeating-linear-gradient(45deg, #111 0, #111 2px, #000 2px, #000 4px);
+}
+
+.moonContainer {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    position: relative;
+}
+
+/* CSS-only Moon Phase Trick */
+.moon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: #ddd;
+    box-shadow: 0 0 20px #fff;
+    position: relative;
+    overflow: hidden;
+}
+
+.shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 50%;
+    background: #000;
+    opacity: 0.8;
+    transform: translateX(calc((var(--phase) - 0.5) * 200%));
+    /* This moves the shadow across. Simple approximation. */
+    /* Real moon phase CSS is complex, this is a stylized "scanner" look which fits indie */
+    mix-blend-mode: multiply;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: 1.2rem;
+}
+
+.label {
+    color: #888;
+    font-size: 1rem;
+}
+
+.value {
+    color: var(--neon-blue);
+    font-family: var(--font-pixel);
+    font-size: 1.1rem;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 5px;
+}
+
+.coords {
+    color: #555;
+    font-size: 0.9rem;
+    font-family: monospace;
+}
